@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enchère en cours</title>
+</head>
+<body>
+    <h1>Enchère en cours</h1>
+    {% if article_en_cours %}
+        <h2>{{ article_en_cours.nom }}</h2>
+        <p>Description: {{ article_en_cours.description }}</p>
+        <p>Prix de départ: {{ article_en_cours.prix_de_depart }}</p>
+        <p>Date de début des enchères: {{ article_en_cours.date_debut_encheres }}</p>
+        <p>Date de fin des enchères: {{ article_en_cours.date_fin_encheres }}</p>
+        {% if form %}
+            <h3>Votre offre</h3>
+            <form method="post" action="{% url 'encheres:ajouter_offre' article_en_cours.id %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Ajouter l'offre</button>
+            </form>
+        {% endif %}
+    {% else %}
+        <p>Aucune enchère en cours.</p>
+    {% endif %}
+</body>
+</html>
+
